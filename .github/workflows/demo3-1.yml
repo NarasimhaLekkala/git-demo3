@@ -30,6 +30,6 @@ jobs:
         - name: install dependencies
           run: npm install
         - name: run server
-          run: npm start & npx wait-on http://127.0.0.1:${{ env.port }} $port
+          run: npm start & npx wait-on http://127.0.0.1:$port
         - name: run tests
           run: npm run test
