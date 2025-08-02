@@ -15,7 +15,7 @@ jobs:
             mongodb_password: RwhEQkC4bDLWUnI5
             port: 8080
         runs-on: ubuntu-latest
-      steps:
+        steps:
         - name: Get code from repository
           uses: actions/checkout@v4
         - name: cache the npm install
