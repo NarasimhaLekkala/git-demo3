@@ -1,0 +1,35 @@
+name: demo3-1
+on:
+  workflow_dispatch:
+  push:
+    branches:
+        - main
+        - dev
+env:
+    monogodb_db__name : gha-demo
+jobs:
+    demo3-test01:
+        env:
+            mongodb_cluster_address: cluster0.k25fgdp.mongodb.net
+            mongodb_username: narasimha19934
+            mongodb_password: RwhEQkC4bDLWUnI5
+            port: 8080
+        runs-on: ubuntu-latest
+      steps:
+        - name: Get code from repository
+          uses: actions/checkout@v4
+        - name: cache the npm install
+          uses: actions/cache@v4
+          with:
+            path: ~/.npm
+            key: depend-npm-build-${{ hashFiles('**/package-lock.json') }}
+        - name: install node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: '20.x'
+        - name: install dependencies
+          run: npm install
+        - name: run server
+          run: npm start & npx wait-on http://127.0.0.1:${{ env.port }} $port
+        - name: run tests
+          run: npm run test
